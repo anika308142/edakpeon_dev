@@ -1,11 +1,14 @@
 const db = require('../models');
+const roles = require('../utils/roles');
+
 
 const User = db.User;
 db.sequelize.sync();
 
 var generateToken = require('../utils/generateToken');
 let options = {};
-var role = "user";
+var roleUser = roles.USER
+console.log(roleUser)
 
 exports.createUser = async (req, res) => {
   if (!req.body.username || !req.body.password || !req.body.usernumber) {
@@ -27,7 +30,7 @@ exports.createUser = async (req, res) => {
   if (created) {
 
     const token = await generateToken.generateAccessToken({ usernumber: req.body.usernumber });
-    const type = await generateToken.generateRole({ role: role });
+    const type = await generateToken.generateRole({ role: roleUser });
 
     // res.cookie('Authorization', token, [options]);
     res.header('Authorization', token);
@@ -36,7 +39,7 @@ exports.createUser = async (req, res) => {
     //res.json({ message: "Registration Successful!" });
     res.json({
       username: users.username,
-      role: role,
+      role: roleUser,
       email: users.email,
       phone_number: users.usernumber,
       access_token: token,
@@ -75,7 +78,7 @@ exports.loginUser = async (req, res) => {
   }
   else {
     const token = await generateToken.generateAccessToken({ usernumber: req.body.usernumber });
-    const type = await generateToken.generateRole({ role: role });
+    const type = await generateToken.generateRole({ role: roleUser });
     res.header('Authorization', token);
     res.header('User-Role', type);
     res.status(200);
@@ -84,7 +87,7 @@ exports.loginUser = async (req, res) => {
     // });
     res.json({
       username: users.username,
-      role: role,
+      role: roleUser,
       email: users.email,
       phone_number: users.usernumber,
       access_token: token,

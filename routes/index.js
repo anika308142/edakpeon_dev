@@ -10,9 +10,10 @@ var cartRouter = require('./carts')
 var addressRouter = require('./addresses')
 var orderRouter= require('./orders')
 /* GET home page. */
-app.get('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
   res.send("blog ");
 });
+
 router.use('/users', userRouter);
 router.use('/centerowners', centerownerRouter);
 router.use('/shopkeepers', shopkeeperRouter);

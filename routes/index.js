@@ -1,5 +1,5 @@
 var express = require('express');
-var app = express()
+//var app = express()
 var router = express.Router();
 var userRouter = require('./users')
 var centerownerRouter = require('./centerowners')

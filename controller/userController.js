@@ -11,6 +11,7 @@ var roleUser = roles.USER
 console.log(roleUser)
 
 exports.createUser = async (req, res) => {
+  console.log(req.body)
   if (!req.body.username || !req.body.password || !req.body.usernumber) {
     res.status(400);
     res.json({
